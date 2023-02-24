@@ -1,0 +1,237 @@
+version: "3"
+services:
+  db_seg_1:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_1
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_1:/var/lib/gpdb/
+  db_seg_2:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_2
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_2:/var/lib/gpdb/
+  db_seg_3:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_3
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_3:/var/lib/gpdb/
+  db_seg_4:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_4
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_4:/var/lib/gpdb/
+  db_seg_5:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_5
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_5:/var/lib/gpdb/
+  db_seg_6:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_6
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_6:/var/lib/gpdb/
+  db_seg_7:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_7
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_7:/var/lib/gpdb/
+  db_seg_8:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_8
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_8:/var/lib/gpdb/
+  db_seg_9:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_9
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_9:/var/lib/gpdb/
+  db_seg_10:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_10
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_10:/var/lib/gpdb/
+  db_seg_11:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_11
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_11:/var/lib/gpdb/
+  db_seg_12:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_12
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_12:/var/lib/gpdb/
+  db_seg_13:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_13
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_13:/var/lib/gpdb/
+  db_seg_14:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_14
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_14:/var/lib/gpdb/
+  db_seg_15:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_15
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_15:/var/lib/gpdb/
+  db_seg_16:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_16
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_16:/var/lib/gpdb/
+  db_seg_17:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_17
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_17:/var/lib/gpdb/
+  db_seg_18:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_18
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_18:/var/lib/gpdb/
+  db_seg_19:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_19
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_19:/var/lib/gpdb/
+  db_seg_20:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_20
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_20:/var/lib/gpdb/
+  db_master_1:
+    build: .
+    environment:
+       - GP_NODE=master
+       - HOSTFILE=multihost
+    hostname: db_master_1
+    command: tail -f /dev/null
+    volumes:
+      - db_master_1:/var/lib/gpdb/
+    depends_on: 
+      - db_seg_1
+      - db_seg_2
+      - db_seg_3
+      - db_seg_4
+      - db_seg_5
+      - db_seg_6
+      - db_seg_7
+      - db_seg_8
+      - db_seg_9
+      - db_seg_10
+      - db_seg_11
+      - db_seg_12
+      - db_seg_13
+      - db_seg_14
+      - db_seg_15
+      - db_seg_16
+      - db_seg_17
+      - db_seg_18
+      - db_seg_19
+      - db_seg_20   
+    ports:
+      - "15432:5432"
+    links:
+      - db_seg_1:seg1
+      - db_seg_2:seg2
+      - db_seg_3:seg3
+      - db_seg_4:seg4
+      - db_seg_5:seg5
+      - db_seg_6:seg6
+      - db_seg_7:seg7
+      - db_seg_8:seg8
+      - db_seg_9:seg9
+      - db_seg_10:seg10
+      - db_seg_11:seg11
+      - db_seg_12:seg12
+      - db_seg_13:seg13
+      - db_seg_14:seg14
+      - db_seg_15:seg15
+      - db_seg_16:seg16
+      - db_seg_17:seg17
+      - db_seg_18:seg18
+      - db_seg_19:seg19
+      - db_seg_20:seg20
+volumes:
+  db_master_1:
+  db_seg_1:
+  db_seg_2:
+  db_seg_3:
+  db_seg_4:
+  db_seg_5:
+  db_seg_6:
+  db_seg_7:
+  db_seg_8:
+  db_seg_9:
+  db_seg_10:
+  db_seg_11:
+  db_seg_12:
+  db_seg_13:
+  db_seg_14:
+  db_seg_15:
+  db_seg_16:
+  db_seg_17:
+  db_seg_18:
+  db_seg_19:
+  db_seg_20:

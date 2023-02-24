@@ -1,0 +1,83 @@
+#FROM ubuntu:16.04
+#
+#RUN apt-get update && apt-get install -y openssh-server \
+#    && apt-get install -y software-properties-common \
+#    && add-apt-repository -y ppa:greenplum/db \
+#    && apt-get update && apt-get install -y greenplum-db-oss \
+#    && apt-get install -y less vim sudo
+
+# FROM centos:7
+# FROM nvidia/cuda:10.1-base-centos7
+# FROM  nvidia/cuda:11.0.3-base-centos8
+FROM nvidia/cuda:11.1.1-base-centos8
+
+ENV install_path /usr/local/greenplum-db
+
+COPY * /tmp/
+
+
+RUN dnf --disablerepo '*' --enablerepo=extras swap centos-linux-repos centos-stream-repos  -y
+RUN dnf install 'dnf-command(config-manager)' -y
+RUN dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo 
+RUN dnf distro-sync -y
+
+
+
+# install python3.9
+RUN yum install gcc openssl-devel bzip2-devel libffi-devel zlib-devel -y
+RUN curl https://www.python.org/ftp/python/3.9.16/Python-3.9.16.tgz --output /tmp/Python-3.9.16.tgz
+WORKDIR /tmp
+RUN tar xzf Python-3.9.16.tgz
+WORKDIR /tmp/Python-3.9.16
+RUN ./configure --enable-optimizations
+RUN yum install make -y
+RUN make altinstall
+RUN yum install which -y
+WORKDIR /tmp
+RUN rm -r Python-3.9.16.tgz
+RUN yum -y install epel-release
+RUN curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
+RUN python3.9 get-pip.py
+RUN python3.9 -m pip install --upgrade pip
+
+RUN yum install -y sudo unzip nano which tar util-linux-ng passwd openssh-clients openssh-server ed m4 net-tools iproute epel-release 
+
+RUN python3.9 -m pip  install numpy scipy keras
+
+RUN python3.9 -m pip  install tensorflow
+
+RUN yum install -y   python2 
+RUN alias python=/usr/bin/python2.7
+
+ENV install_path /usr/local/greenplum-db
+
+COPY * /tmp/
+
+RUN ln -s /usr/bin/python2.7 /usr/bin/python
+
+WORKDIR /inst_scripts
+
+
+# create gpadmin user
+ADD gpadmin_user.sh .
+RUN chmod 755 gpadmin_user.sh
+RUN ./gpadmin_user.sh
+RUN usermod -aG wheel gpadmin
+
+
+# install the binary of GPDB
+
+RUN export distr_name=`ls /tmp | grep greenplum-db` && \
+    ls -l /tmp && \
+    yum install -y /tmp/${distr_name}  && \
+    chown -R gpadmin ${install_path}*
+
+# RUN chown -R gpadmin:gpadmin /opt/gpdb
+
+
+# create data directories
+RUN mkdir -p /var/lib/gpdb/data/gpdata1
+RUN mkdir /var/lib/gpdb/data/gpdata2
+# create master directory
+RUN mkdir /var/lib/gpdb/data/gpmaster
+
