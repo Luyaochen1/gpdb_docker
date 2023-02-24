@@ -31,3 +31,9 @@ SELECT status, expansion_started, source_bytes FROM
 gpexpand.status_detai
 
 run gpexpand again to redistribite the table
+
+gpexpand -c to finish c
+
+cat /var/lib/gpdb/data/gpmaster/gpsne-1/gpexpand.status_detail
+24585   iqvia   aemr.vitals     \N      2       f       COMPLETED       2023-02-24 19:36:18.750982      2023-02-24 19:36:21.454585      707592192       h
+
