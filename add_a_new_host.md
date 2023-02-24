@@ -22,3 +22,12 @@ db_seg_3|db_seg_3|20001|/var/lib/gpdb/data/gpdata2/gpsne5|7|5|p
 
 gpexpand -i gpexpand_inputfile_20230224_185735
 
+psql to postgres
+
+SELECT * FROM gpexpand.expansion_progress;
+
+
+SELECT status, expansion_started, source_bytes FROM
+gpexpand.status_detai
+
+run gpexpand again to redistribite the table
